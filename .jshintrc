@@ -1,0 +1,11 @@
+{
+    "quotmark": "single",
+    "strict": true,
+    "globals": {
+        "Backbone": false,
+        "jQuery": false,
+        "module": false,
+        "require": false,
+        "console": false
+    }
+}
