@@ -8,8 +8,8 @@ module.exports = function (grunt) {
 
     // 相关公共配置
     var config = {
-        tmp: 'coco/tmp/',
-        src: 'coco/',
+        tmp: 'coco/tmp',
+        src: 'coco',
         dest: 'coco/dest'
     };
 
@@ -64,9 +64,11 @@ module.exports = function (grunt) {
         },
         // 监听文件变化，重新运行相应任务，自动刷新页面
         watch: {
-            bower: {
-                files: ['../bower.json'],
-                tasks: ['wiredep']
+            configFiles: {
+                files: ['Gruntfile.js'],
+                options: {
+                    reload: true
+                }
             },
             js: {
                 files: ['<%=config.src %>/js/**/{,*/}*.js',
@@ -77,11 +79,11 @@ module.exports = function (grunt) {
                 }
             },
             livereload: {
-                files: ['<%=config.src %>/coco-app/{,*/}*.html',
+                files: ['<%=config.src %>/coco-app/**/{,*/}*.html',
                     '<%=config.src %>/coco-app/**/{,*/}*.css',
                     '<%=config.src %>/coco-app/**/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'],
                 options: {
-                    livereload: '<%= connect.options.livereload >'
+                    livereload: true
                 }
             }
         },
@@ -90,31 +92,27 @@ module.exports = function (grunt) {
             options: {
                 port: 9000,
                 hostname: 'localhost',
-                livereload: 35729
+                livereload: true
             },
             livereload: {
-               options: {
-                   open: true,
-                   middleware: function (connect) {
-                       return [
-                           connect.static(config.src)
-                       ]
-                   }
-               }
+                options: {
+                    open: true,
+                    middleware: function (connect) {
+                        return [
+                            connect.static(config.src)
+                        ];
+                    }
+                }
             }
         },
-        wiredep: {
-            options: {
-                cwd: '<%=config.src %>'
-            },
-            web: {
-                src: ['<%=config.src %>/coco-app/index.html']//,
-                // ignorePath: /\./
+        karma: {
+            unit: {
+                configFile: 'karma.conf.js'
             }
         }
     });
 
-    grunt.registerTask('serve', ['wiredep', 'connect:livereload', 'watch']);
+    grunt.registerTask('serve', ['connect:livereload', 'watch']);
     grunt.registerTask('copyfile', ['clean', 'copy']);
     grunt.registerTask('default', ['jshint']);
 
