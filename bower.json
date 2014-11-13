@@ -18,8 +18,8 @@
   ],
   "dependencies": {
     "underscore": "~1.7.0",
-    "zepto": "~1.1.4",
     "jquery": "~2.1.1",
-    "requirejs": "~2.1.15"
+    "requirejs": "~2.1.15",
+    "zeptojs": "~1.1.4"
   }
 }

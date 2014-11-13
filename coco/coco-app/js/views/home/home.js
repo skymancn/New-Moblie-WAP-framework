@@ -64,18 +64,20 @@ define(['jquery', '_', 'pageView'], function ($, _, PageView) {
         animToggleMenu: function () {
             if (this._TOGGLE_FLAG) {
                 this.hideOverlaySide();
-                this.$el.animate({
-                    left: 0
-                }, 400, $.proxy(function () {
-                    this._TOGGLE_FLAG = false;
-                }, this));
+
+                this.$el.css({
+                    marginLeft: '0%'
+                });
+
+                this._TOGGLE_FLAG = false;
             } else {
                 this.showOverlaySide();
-                this.$el.animate({
-                    left: '80%'
-                }, 400, $.proxy(function () {
-                    this._TOGGLE_FLAG = true;
-                }, this));
+
+                this.$el.css({
+                    marginLeft: '80%'
+                });
+
+                this._TOGGLE_FLAG = true;
             }
         },
         showOverlaySide: function () {
@@ -86,6 +88,7 @@ define(['jquery', '_', 'pageView'], function ($, _, PageView) {
         },
         switchPageTab: function (event) {
             var $item = $(event.currentTarget);
+
             if ($item.hasClass('cur') || (this.hotelView.isAnimated() && this.hotelView.isAnimated())) {
                 return false;
             }

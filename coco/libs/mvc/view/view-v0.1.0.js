@@ -33,7 +33,9 @@ define(['_', 'jquery', 'events', 'extend'], function (_, $, Events, extend) {
             return this;
         },
         remove: function () {
-            if (this.__IS_DESTROYED) { return; }
+            if (this.__IS_DESTROYED) {
+                return;
+            }
             this.__unbindUIElements();
             this.$el.remove();
             this.stopListening();
@@ -96,6 +98,19 @@ define(['_', 'jquery', 'events', 'extend'], function (_, $, Events, extend) {
             }
         },
         // 新增方法
+        getMaxZIndex: function () {
+            var $allElem = $('*'),
+                MIN = Number.MIN_VALUE,
+                zIndex = 0,
+                self = this;
+            $allElem.each(function (index) {
+                zIndex = parseInt($allElem.eq(index).css('z-index'), 10) || 0;
+                if (zIndex > MIN) {
+                    MIN = zIndex;
+                }
+            });
+            return MIN;
+        },
         __normalizeUIKeys: function (hash) {
             var ui = _.result(this, 'ui');
             var uiBindings = _.result(this, '_uiBindings');
@@ -116,7 +131,7 @@ define(['_', 'jquery', 'events', 'extend'], function (_, $, Events, extend) {
 
             return triggerEvents;
         },
-        __buildViewTrigger: function(triggerDef) {
+        __buildViewTrigger: function (triggerDef) {
             var hasOptions = _.isObject(triggerDef);
 
             var options = _.defaults({}, (hasOptions ? triggerDef : {}), {
@@ -126,7 +141,7 @@ define(['_', 'jquery', 'events', 'extend'], function (_, $, Events, extend) {
 
             var eventName = hasOptions ? options.event : triggerDef;
 
-            return function(e) {
+            return function (e) {
                 if (e) {
                     if (e.preventDefault && options.preventDefault) {
                         e.preventDefault();
@@ -146,7 +161,7 @@ define(['_', 'jquery', 'events', 'extend'], function (_, $, Events, extend) {
                 this.__triggerMethod(eventName, args);
             };
         },
-        __triggerMethod: function() {
+        __triggerMethod: function () {
             var ret = triggerMethod.apply(this, arguments);
             return ret;
         },
@@ -197,10 +212,12 @@ define(['_', 'jquery', 'events', 'extend'], function (_, $, Events, extend) {
                 this.ui[key] = this.$(selector);
             }, this);
         },
-        __unbindUIElements: function() {
-            if (!this.ui || !this._uiBindings) { return; }
+        __unbindUIElements: function () {
+            if (!this.ui || !this._uiBindings) {
+                return;
+            }
 
-            _.each(this.ui, function($el, name) {
+            _.each(this.ui, function ($el, name) {
                 delete this.ui[name];
             }, this);
 

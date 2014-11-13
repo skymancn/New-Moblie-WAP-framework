@@ -50,17 +50,15 @@ define(['jquery', 'pageView', '../../config/config'], function ($, PageView, con
         },
         toggleBody: function () {
             if (this._TOGGLE_FLAG) {
-                this.$el.animate({
-                    left: '-100%'
-                }, 400, $.proxy(function () {
+                this.$el.css({
+                    marginLeft: '-100%'});
                     this._TOGGLE_FLAG = false;
-                }, this));
+
             } else {
-                this.$el.animate({
-                    left: '0%'
-                }, 400, $.proxy(function () {
+                this.$el.css({
+                    marginLeft: '0%'});
                     this._TOGGLE_FLAG = true;
-                }, this));
+
             }
         },
         loadLanguageView: function () {

@@ -12,7 +12,7 @@ require.config({
         }
     },
     paths: {
-        'jquery': __3RD_LIBS_BASE__ + 'jquery/dist/jquery',
+        'jquery': __3RD_LIBS_BASE__ + 'zeptojs/dist/zepto',
         '_': __3RD_LIBS_BASE__ + 'underscore/underscore',
         'events': __LIBS_BASE__ + 'common/events/events-v0.1.0',
         'extend': __LIBS_BASE__ + 'common/extend/extend-v0.1.0',
@@ -21,7 +21,8 @@ require.config({
         'model': __LIBS_BASE__ + 'mvc/model/model-v0.1.0',
         'local-storage': __LIBS_BASE__ + 'common/local-storage/local-storage-v0.1.0',
         'keyword-store': __LIBS_BASE__ + 'common/keyword-store/keyword-store-v0.1.0',
-        'geolocation': __LIBS_BASE__ + 'common/geolocation/geolocation-v0.1.0'
+        'geolocation': __LIBS_BASE__ + 'common/geolocation/geolocation-v0.1.0',
+        'loading': __LIBS_BASE__ + 'ui/loading/loading-v0.1.0'
     }
 });
 

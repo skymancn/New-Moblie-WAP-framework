@@ -1,7 +1,7 @@
 /**
  * Created by jiey on 2014/11/6.
  */
-define(['jquery', 'pageView', 'geolocation'], function ($, PageView, geolocation) {
+define(['jquery', 'pageView', 'geolocation', 'loading'], function ($, PageView, geolocation, Loading) {
     var HotelView = PageView.extend({
         initialize: function () {
 
@@ -100,6 +100,7 @@ define(['jquery', 'pageView', 'geolocation'], function ($, PageView, geolocation
         searchNearBy: function () {
             console.log('nearby');
             geolocation.checkIsChina();
+            var loading = new Loading().show();
         },
         chooseCheckin: function () {
             this.chooseHotelStaying.trigger('animShow');
