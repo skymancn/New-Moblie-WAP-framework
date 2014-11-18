@@ -7,6 +7,8 @@ define(['view'], function (View) {
         __ZINDEX: 0,
         __ANIM_FLAG: false,
         __FULL_PAGE_CLASS_NAME: 'page',
+        __childrenViews: [],
+        childViews: {},
         constructor: function (options) {
             View._.bindAll(this, 'render');
             this.options = _.extend({}, _.result(this, 'options'),
@@ -102,6 +104,84 @@ define(['view'], function (View) {
                 self.__ANIM_FLAG = false;
                 self.__STATE_TAG = true;
             }, 250);
+        },
+        addChildView: function (uid, view) {
+            if (uid) {
+                if (this.childViews.uid) {
+                    throw new Error('The UID was added!');
+                } else {
+                    if (view && view.cid && !this.getChildViewByCid(view.cid)) {
+                        this.childViews[uid] = view;
+                        view.uid = uid;
+                        this.__childrenViews.push(view);
+                    } else {
+                        throw new Error('No View is available for use, Or The View was added!');
+                    }
+                }
+            } else {
+                throw new Error('The CID(arguments) is Empty!');
+            }
+        },
+        getChildViewByUid: function (uid) {
+            return this.childViews[uid];
+        },
+        getChildViewByCid: function (cid) {
+            if (!cid) {
+                throw new Error('The CID(arguments) is Empty!');
+            }
+            for (var i = 0, len = this.__childrenViews.length; i < len; i++) {
+                if (this.__childrenViews[i].cid === cid) {
+                    return this.__childrenViews[i];
+                }
+            }
+            return null;
+        },
+        removeFromParent: function () {
+            this.parentView && this.parentView.removeChildViewByCid(this.cid);
+        },
+        removeChildViewByCid: function (cid) {
+            var childView;
+            if (!cid) {
+                throw new Error('The CID(arguments) is Empty!');
+            }
+            for (var i = 0, len = this.__childrenViews.length; i < len; i++) {
+                if (this.__childrenViews[i].cid === cid) {
+                    childView = this.__childrenViews[i];
+                    this.childViews[childView.uid] = null;
+                    this.__childrenViews.splice(i, 1);
+                    //this.__removeChildViews(childView.__childrenViews);
+                    console.log(childView.childViews);
+                    //childView.removeChildViews && childView.removeChildViews();
+                    childView.remove && childView.remove();
+                    break;
+                }
+            }
+        },
+        removeChildViews: function () {
+            if (!this.__childrenViews.length) {
+                return false;
+            }
+            for (var i = 0, len = this.__childrenViews.length; i < len; i++) {
+                this.childViews[this.__childrenViews[i].uid] = null;
+                //this.__childrenViews[i].removeChildViews && this.__childrenViews[i].removeChildViews();
+                //this.__removeChildViews(this.__childrenViews[i].__childrenViews);
+                this.__childrenViews[i].remove && this.__childrenViews[i].remove();
+            }
+            this.__childrenViews = [];
+        },
+        __removeChildViews: function (views) {
+            if (views && views.length) {
+                for (var i = 0, len = views.length; i < len; i++) {
+                    if (views[i].__childrenViews.length) {
+                        this.__removeChildViews(views[i].__childrenViews);
+                    }
+                    views[i].remove && views[i].remove();
+                }
+            }
+        },
+        destory: function () {
+            this.removeChildViews();
+            this.remove();
         },
         __scrollTopZero: function () {
             this.__$window.scrollTop(0);

@@ -1,7 +1,7 @@
 /**
  * Created by jiey on 2014/11/4.
  */
-define(['_', 'jquery', 'events', 'extend'], function (_, $, Events, extend) {
+define(['underscore', 'jquery', 'events', 'extend'], function (_, $, Events, extend) {
 
     var array = [];
     var push = array.push;
@@ -13,6 +13,7 @@ define(['_', 'jquery', 'events', 'extend'], function (_, $, Events, extend) {
         this.cid = _.uniqueId('view');
         options || (options = {});
         _.extend(this, _.pick(options, viewOptions));
+        this.__PLATFORM_MOBLE = $.os.phone || $.os.tablet;
         this.__ensureElement();
         this.initialize.apply(this, arguments);
         this.__delegateEvents();
@@ -37,8 +38,8 @@ define(['_', 'jquery', 'events', 'extend'], function (_, $, Events, extend) {
                 return;
             }
             this.__unbindUIElements();
-            this.$el.remove();
             this.stopListening();
+            this.$el.remove();
             this.__IS_DESTROYED = true;
             return this;
         },
@@ -73,6 +74,7 @@ define(['_', 'jquery', 'events', 'extend'], function (_, $, Events, extend) {
                 var eventName = match[1], selector = match[2];
                 method = _.bind(method, this);
                 eventName += '.delegateEvents' + this.cid;
+                eventName = this.adapterEventNames(eventName);
                 if (selector === '') {
                     this.$el.on(eventName, method);
                 } else {
@@ -80,6 +82,13 @@ define(['_', 'jquery', 'events', 'extend'], function (_, $, Events, extend) {
                 }
             }
             return this;
+        },
+        adapterEventNames: function (name) {
+            if(this.__PLATFORM_MOBLE) {
+                return name.replace(/^click/i, 'tap');
+            } else {
+                return name.replace(/^tap/i, 'click');
+            }
         },
         undelegateEvents: function () {
             this.$el.off('.delegateEvents' + this.cid);

@@ -9,15 +9,15 @@ var __LIBS_BASE__ = '/libs/', // js libs 内部库的baseUrl
 require.scroll = {};
 
 require.config({
-    baseUrl: '/coco-app/js/',
+    baseUrl: '../coco-app/js/',
     shim: {
-        '_': {
+        'underscore': {
             exports: '_'
         }
     },
     paths: {
         'jquery': __3RD_LIBS_BASE__ + 'zeptojs/dist/zepto',
-        '_': __3RD_LIBS_BASE__ + 'underscore/underscore',
+        'underscore': __3RD_LIBS_BASE__ + 'underscore/underscore',
         'events': __LIBS_BASE__ + 'common/events/events-v0.1.0',
         'extend': __LIBS_BASE__ + 'common/extend/extend-v0.1.0',
         'view': __LIBS_BASE__ + 'mvc/view/view-v0.1.0',
@@ -25,7 +25,8 @@ require.config({
         'model': __LIBS_BASE__ + 'mvc/model/model-v0.1.0',
         'local-storage': __LIBS_BASE__ + 'common/local-storage/local-storage-v0.1.0',
         'keyword-store': __LIBS_BASE__ + 'common/keyword-store/keyword-store-v0.1.0',
-        'geolocation': __LIBS_BASE__ + 'common/geolocation/geolocation-v0.1.0',
+        'geolocation': __LIBS_BASE__ + 'common/geolocation/geol' +
+            'ocation-v0.1.0',
         'loading': __LIBS_BASE__ + 'ui/loading/loading-v0.1.0',
 
         'dom-utils': __LIBS_BASE__ + 'utils/dom-utils/dom-utils-v0.1.0',
@@ -42,8 +43,6 @@ require.config({
     }
 });
 
-require(['views/home/home'], function (HomeRootView) {
-    var homePage = new HomeRootView({
-        el: '#home-page'
-    });
+require(['homemain'], function () {
+
 });

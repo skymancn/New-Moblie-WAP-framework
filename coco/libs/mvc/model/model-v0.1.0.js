@@ -2,7 +2,7 @@
  * Created by jiey on 2014/11/4.
  */
 
-define(['_', 'events', 'extend'], function (_, Events, extend) {
+define(['underscore', 'events', 'extend'], function (_, Events, extend) {
 
     var array = [];
     var push = array.push;

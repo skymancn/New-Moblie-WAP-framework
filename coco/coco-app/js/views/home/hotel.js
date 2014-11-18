@@ -61,11 +61,11 @@ define(['jquery', 'pageView', 'geolocation', 'loading'], function ($, PageView, 
         loadChooseCityView: function () {
             var self = this;
             require(['views/home/choose-city'], function (ChooseCityView) {
-                self.chooseCityView = new ChooseCityView({
+                self.addChildView('chooseCityView', new ChooseCityView({
                     hasFullPage: true,
                     parentView: self,
                     el: '#choose-hotel-city-page'
-                });
+                }));
             });
         },
         loadChooseHoleNameView: function () {
@@ -91,7 +91,7 @@ define(['jquery', 'pageView', 'geolocation', 'loading'], function ($, PageView, 
             });
         },
         showChooseCity: function () {
-            this.chooseCityView.trigger('animShow');
+            this.childViews.chooseCityView.trigger('animShow');
         },
         showChooseHotelName: function () {
 

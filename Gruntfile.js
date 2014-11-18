@@ -8,9 +8,9 @@ module.exports = function (grunt) {
 
     // 相关公共配置
     var config = {
-        tmp: 'coco/tmp',
+        tmp: 'tmp',
         src: 'coco',
-        dest: 'coco/dest'
+        dest: 'dist'
     };
 
     // 配置所有任务
@@ -103,6 +103,12 @@ module.exports = function (grunt) {
                             ];
                         }
                     }
+                },
+                dist: {
+                    options: {
+                        base: '<%= config.dest %>',
+                        livereload: false
+                    }
                 }
             },
             karma: {
@@ -134,9 +140,6 @@ module.exports = function (grunt) {
                         optimize: 'uglify2',
                         dir: 'dist',
                         //out: 'dist',
-                        paths: {
-                            //store: 'common/store'
-                        },
                         uglify: {
                             toplevel: true,
                             ascii_only: true,
@@ -171,7 +174,9 @@ module.exports = function (grunt) {
                         modules: [
                             {
                                 name: 'coco-app/js/views/home/home',
-                                exclude: ['jquery', '_'],
+                                insertRequire: ['coco-app/js/views/home/home'],
+                                create: true,
+                                exclude: ['jquery', 'underscore'],
                                 override: {
                                     pragmas: {
                                         fooExclude: true
@@ -189,7 +194,16 @@ module.exports = function (grunt) {
     )
     ;
 
-    grunt.registerTask('serve', ['connect:livereload', 'watch']);
+    grunt.registerTask('serve', 'start the server and preview your app, --allow-remote for remote access', function (target) {
+        if (grunt.option('allow-remote')) {
+            grunt.config.set('connect.options.hostname', '0.0.0.0');
+        }
+        if (target === 'dist') {
+            return grunt.task.run(['build', 'connect:dist:keepalive']);
+        }
+        grunt.task.run(['connect:livereload', 'watch']);
+    });
+    grunt.registerTask('build', ['clean', 'requirejs']);
     grunt.registerTask('copyfile', ['clean', 'copy']);
     grunt.registerTask('default', ['jshint']);
 
