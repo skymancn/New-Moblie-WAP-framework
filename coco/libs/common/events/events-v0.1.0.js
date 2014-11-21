@@ -1,7 +1,7 @@
 /**
  * Created by jiey on 2014/11/5.
  */
-define(['underscore'], function (_) {
+define(['_'], function (_) {
     var array = [];
     var push = array.push;
     var slice = array.slice;

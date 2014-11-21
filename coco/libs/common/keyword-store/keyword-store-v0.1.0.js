@@ -1,7 +1,7 @@
 /**
  * Created by jiey on 2014/11/11.
  */
-define(['local-storage', 'underscore', 'events', 'extend'], function (store, _, Events, extend) {
+define(['local-storage', '_', 'events', 'extend'], function (store, _, Events, extend) {
     var KeywordStore = function (opts) {
         var defaults = {
             keyName: "test",

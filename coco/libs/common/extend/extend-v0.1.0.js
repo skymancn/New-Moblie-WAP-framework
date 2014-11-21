@@ -1,7 +1,7 @@
 /**
  * Created by jiey on 2014/11/5.
  */
-define(['underscore'], function (_) {
+define(['_'], function (_) {
 
     var extend = function (protoProps, staticProps) {
         var parent = this;

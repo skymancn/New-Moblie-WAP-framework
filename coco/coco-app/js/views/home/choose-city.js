@@ -19,8 +19,6 @@ define(['jquery', 'pageView', '../../config/config'], function ($, PageView, con
         },
         cancelChooseCity: function () {
             this.trigger('animHide');
-            //console.log(this.__childrenViews);
-            //this.removeFromParent();
         },
         clearCityInput: function () {
 

@@ -1,7 +1,7 @@
 /**
  * Created by jiey on 2014/11/11.
  */
-define(['underscore', 'events', 'extend'], function (_, Events, extend) {
+define(['_', 'events', 'extend'], function (_, Events, extend) {
     var geo = {},
         geolocation = navigator.geolocation;
     _.extend(geo, Events, {

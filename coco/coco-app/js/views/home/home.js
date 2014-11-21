@@ -1,7 +1,7 @@
 /**
  * Created by jiey on 2014/11/4.
  */
-define(['jquery', 'underscore', 'pageView'], function ($, _, PageView) {
+define(['jquery', '_', 'pageView'], function ($, _, PageView) {
     var HomeRootView = PageView.extend({
         _TOGGLE_FLAG: false,
         initialize: function () {
@@ -25,41 +25,41 @@ define(['jquery', 'underscore', 'pageView'], function ($, _, PageView) {
             'homePageTab': '.page_tab'
         },
         events: {
-            'tap @ui.toggleMenuBtn': 'toggleMenu',
-            'tap @ui.overlaySide': 'toggleMenu',
-            'tap @ui.homePageTab li': 'switchPageTab'
+            'click @ui.toggleMenuBtn': 'toggleMenu',
+            'click @ui.overlaySide': 'toggleMenu',
+            'click @ui.homePageTab li': 'switchPageTab'
         },
         loadHotelView: function () {
             var self = this;
             require(['views/home/hotel'], function (HotelView) {
-                self.addChildView('hotelView', new HotelView({
+                self.hotelView = new HotelView({
                     parentView: self,
                     el: '.hotels_home'
-                }));
+                });
             });
         },
         loadFlightView: function () {
             var self = this;
             require(['views/home/flight'], function (FlightView) {
-                self.addChildView('flightView', new FlightView({
+                self.flightView = new FlightView({
                     parentView: self,
                     el: '.flight_home'
-                }));
+                });
             });
         },
         loadSlideNavView: function () {
             var self = this;
             require(['views/home/slide-nav'], function (SlideNavView) {
-                self.addChildView('slideNavView', new SlideNavView({
+                self.slideNavView = new SlideNavView({
                     parentView: self,
                     el: '.slide_nav'
-                }));
+                });
             });
         },
         toggleMenu: function (event) {
             console.log('toggle');
             this.animToggleMenu();
-            this.childViews.slideNavView.trigger('toggle');
+            this.slideNavView.trigger('toggle');
         },
         animToggleMenu: function () {
             if (this._TOGGLE_FLAG) {
@@ -89,17 +89,17 @@ define(['jquery', 'underscore', 'pageView'], function ($, _, PageView) {
         switchPageTab: function (event) {
             var $item = $(event.currentTarget);
 
-            if ($item.hasClass('cur') || (this.childViews.hotelView.isAnimated() && this.childViews.flightView.isAnimated())) {
+            if ($item.hasClass('cur') || (this.hotelView.isAnimated() && this.hotelView.isAnimated())) {
                 return false;
             }
             $item.addClass('cur').siblings().removeClass('cur');
             //console.log('li', event)
             if ($item.find('i').hasClass('hotels_ico')) {
-                this.childViews.hotelView.animShow();
-                this.childViews.flightView.animHide();
+                this.hotelView.animShow();
+                this.flightView.animHide();
             } else if ($item.find('i').hasClass('flight_ico')) {
-                this.childViews.hotelView.animHide();
-                this.childViews.flightView.animShow();
+                this.hotelView.animHide();
+                this.flightView.animShow();
             }
         }
     });

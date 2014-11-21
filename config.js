@@ -4,13 +4,13 @@
 require.config({
     baseUrl: 'coco-app/js/',
     shim: {
-        'underscore': {
+        '_': {
             exports: '_'
         }
     },
     paths: {
         'jquery': './libs/3rd-libs/zeptojs/dist/zepto',
-        'underscore': './libs/3rd-libs/underscore/underscore',
+        '_': './libs/3rd-libs/underscore/underscore',
         'events': './libs/common/events/events-v0.1.0',
         'extend': './libs/common/extend/extend-v0.1.0',
         'view': './libs/mvc/view/view-v0.1.0',
