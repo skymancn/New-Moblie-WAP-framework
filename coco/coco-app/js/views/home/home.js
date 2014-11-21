@@ -93,7 +93,7 @@ define(['jquery', '_', 'pageView'], function ($, _, PageView) {
                 return false;
             }
             $item.addClass('cur').siblings().removeClass('cur');
-            //console.log('li', event)
+            console.log('li', event)
             if ($item.find('i').hasClass('hotels_ico')) {
                 this.hotelView.animShow();
                 this.flightView.animHide();
