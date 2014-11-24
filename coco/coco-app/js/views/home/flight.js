@@ -35,42 +35,42 @@ define(['jquery', 'pageView'], function ($, PageView) {
         loadChooseAirportDepartView: function () {
             var self = this;
             require(['views/home/choose-airport-depart'], function (ChooseAirportDepartView) {
-                self.chooseAirportDepartView = new ChooseAirportDepartView({
+                self.addChildView('chooseAirportDepartView', new ChooseAirportDepartView({
                     hasFullPage: true,
                     parentView: self,
                     el: '#choose-airport-depart'
-                });
+                }));
 
             });
         },
         loadChooseAirportArriveView: function () {
             var self = this;
             require(['views/home/choose-airport-arrive'], function (ChooseAirportArriveView) {
-                self.chooseAirportArriveView = new ChooseAirportArriveView({
+                self.addChildView('chooseAirportArriveView', new ChooseAirportArriveView({
                     hasFullPage: true,
                     parentView: self,
                     el: '#choose-airport-arrive'
-                });
+                }));
 
             });
         },
         showChooseAirportDepartView: function () {
-            this.chooseAirportDepartView.trigger('animShow');
+            this.childViews.chooseAirportDepartView.trigger('animShow');
         },
         showChooseAirportArriveView: function () {
-            this.chooseAirportArriveView.trigger('animShow');
+            this.childViews.chooseAirportArriveView.trigger('animShow');
         },
         showChooseFlightDateView: function () {
-            this.chooseFlightDateView.trigger('animShow');
+            this.childViews.chooseFlightDateView.trigger('animShow');
         },
         loadChooseFlightDateView: function () {
             var self = this;
             require(['views/home/choose-flight-date'], function (ChooseFlightDateView) {
-                self.chooseFlightDateView = new ChooseFlightDateView({
+                self.addChildView('chooseFlightDateView', new ChooseFlightDateView({
                     hasFullPage: true,
                     parentView: self,
                     el: '#choose-flight-date'
-                });
+                }));
 
             });
         },
